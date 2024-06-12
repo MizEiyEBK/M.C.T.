@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: MIT
+import wei as w
+
+# Inherit from the Vyper ERC20 base contract
+from vyper.interfaces import ERC20
+
+# Define your custom token contract
+contract MyCreditToken(ERC20):
+
+    # Initialize the contract with the token name and symbol
+    @public
+    def __init__():
+        ERC20.__init__("MyCreditToken", "MCT")
+
+    # Override the total supply function
+    @public
+    @constant
+    def totalSupply() -> uint256:
+        return self.balance
+
+    # Override the balanceOf function
+    @public
+    @constant
+    def balanceOf(account: address) -> uint256:
+        return self.balanceOf(account)
+
+    # Override the transfer function
+    @public
+    def transfer(to: address, value: uint256) -> bool:
+        self.transfer(to, value)
+        return True
+
+    # Override the mint function
+    @public
+    def mint(amount: uint256):
+        self._mint(self.msg.sender, amount)
+
+    # Override the burn function
+    @public
+    def burn(amount: uint256):
+        self._burn(self.msg.sender, amount)
